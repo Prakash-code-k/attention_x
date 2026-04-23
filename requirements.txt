@@ -1,0 +1,44 @@
+# ─── AttentionX – Python Dependencies ────────────────────────────────────────
+# Install: pip install -r requirements.txt
+
+# ─── Web Framework ────────────────────────────────────────────────────────────
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.17
+pydantic==2.10.4
+pydantic-settings==2.7.0
+
+# ─── AI / Speech-to-Text ─────────────────────────────────────────────────────
+openai-whisper==20240930
+# For GPU acceleration (optional):
+# torch==2.5.1
+# torchvision==0.20.1
+
+# ─── Audio Analysis ───────────────────────────────────────────────────────────
+librosa==0.10.2.post1
+soundfile==0.12.1
+audioread==3.0.1
+scipy==1.14.1
+numpy==1.26.4
+
+# ─── Computer Vision / Face Tracking ─────────────────────────────────────────
+mediapipe==0.10.18
+opencv-python-headless==4.10.0.84
+
+# ─── Video Processing ─────────────────────────────────────────────────────────
+moviepy==1.0.3
+imageio==2.36.1
+imageio-ffmpeg==0.5.1
+
+# ─── AI Hooks Generation ─────────────────────────────────────────────────────
+anthropic==0.42.0
+
+# ─── Frontend ─────────────────────────────────────────────────────────────────
+streamlit==1.41.1
+requests==2.32.3
+
+# ─── Utilities ────────────────────────────────────────────────────────────────
+python-dotenv==1.0.1
+httpx==0.28.1
+aiofiles==24.1.0
+tqdm==4.67.1

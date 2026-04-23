@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  # ─── Backend API ─────────────────────────────────────────────────────────────
+  backend:
+    build: .
+    container_name: attentionx-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - WHISPER_MODEL=${WHISPER_MODEL:-base}
+      - WHISPER_DEVICE=cpu
+      - DEBUG=false
+    volumes:
+      - ./storage:/app/storage
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ─── Frontend ─────────────────────────────────────────────────────────────────
+  frontend:
+    image: python:3.11-slim
+    container_name: attentionx-frontend
+    working_dir: /app
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://backend:8000
+    volumes:
+      - ./frontend:/app
+      - ./requirements.txt:/app/requirements.txt
+    command: >
+      sh -c "pip install streamlit requests --quiet &&
+             streamlit run app.py --server.port=8501 --server.address=0.0.0.0"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  storage:
